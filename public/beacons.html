@@ -1,0 +1,67 @@
+<div id="test"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+<script>
+
+var username;
+
+axios.get('/getusername').then( function(response) {
+  username = response.data;
+});
+
+var test = document.getElementById('test');
+
+navigator.mediaDevices.getUserMedia({
+    audio: true
+}).then(stream => {
+    // Handle the incoming audio stream
+    const audioContext = new AudioContext();
+    const input = audioContext.createMediaStreamSource(stream);
+    const analyser = audioContext.createAnalyser();
+    const scriptProcessor = audioContext.createScriptProcessor();
+
+    // Some analyser setup
+    analyser.smoothingTimeConstant = 0.3;
+    analyser.fftSize = 1024;
+
+    input.connect(analyser);
+    analyser.connect(scriptProcessor);
+    scriptProcessor.connect(audioContext.destination);
+
+    const processInput = audioProcessingEvent => {
+        const tempArray = new Uint8Array(analyser.frequencyBinCount);
+
+        analyser.getByteFrequencyData(tempArray);
+        test.innerHTML = getAverageVolume(tempArray);
+
+    }
+
+    const getAverageVolume = array => {
+        const length = array.length;
+        let values = 0;
+        let i = 450;
+
+        for (; i < length; i++) {
+            values += array[i];
+        }
+
+        return values / (length-450);
+    }
+
+      scriptProcessor.onaudioprocess = processInput;
+
+
+}, error => {
+    // Something went wrong, or the browser does not support getUserMedia
+});
+
+setInterval( function() {
+  axios.post('/update', {
+    username: username,
+    volume: test.innerHTML
+  });
+
+}, 3000);
+
+ </script>

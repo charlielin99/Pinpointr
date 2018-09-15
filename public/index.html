@@ -1,51 +1,29 @@
-<div id="test"></div>
 
-<script>
+<style>
 
-var test = document.getElementById('test');
+  #button-wrapper {
+    margin: 0 auto;
+    text-align: center;
+  }
+</style>
 
-navigator.mediaDevices.getUserMedia({
-    audio: true
-}).then(stream => {
-    // Handle the incoming audio stream
-    const audioContext = new AudioContext();
-    const input = audioContext.createMediaStreamSource(stream);
-    const analyser = audioContext.createAnalyser();
-    const scriptProcessor = audioContext.createScriptProcessor();
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1&appId=1953417994958287&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 
-    // Some analyser setup
-    analyser.smoothingTimeConstant = 0.3;
-    analyser.fftSize = 1024;
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    console.log(response);
+  });
+}
 
-    input.connect(analyser);
-    analyser.connect(scriptProcessor);
-    scriptProcessor.connect(audioContext.destination);
+</script>
 
-    const processInput = audioProcessingEvent => {
-        const tempArray = new Uint8Array(analyser.frequencyBinCount);
-
-        analyser.getByteFrequencyData(tempArray);
-        test.innerHTML = getAverageVolume(tempArray);
-
-    }
-
-    const getAverageVolume = array => {
-        const length = array.length;
-        let values = 0;
-        let i = 450;
-
-        for (; i < length; i++) {
-            values += array[i];
-        }
-
-        return values / (length-450);
-    }
-
-      scriptProcessor.onaudioprocess = processInput;
-
-
-}, error => {
-    // Something went wrong, or the browser does not support getUserMedia
-});
-
- </script>
+<div id="button-wrapper">
+  <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState" scope="public_profile,user_age_range,user_gender"></div>
+</div>
