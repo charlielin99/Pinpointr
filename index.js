@@ -14,6 +14,14 @@ app.get('/',function(req,res){
   res.sendFile(__dirname+'/public/index.html');
 });
 
+app.get('/timetest',function(req,res){
+  res.sendFile(__dirname+'/public/timetest.html');
+});
+
+app.post('/time', function(req, res) {
+  console.log(req.body.sent - Date.now());
+})
+
 app.post('/uploadImage', function(req,res) {
   console.log(req.data);
 });
