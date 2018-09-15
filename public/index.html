@@ -32,13 +32,13 @@ navigator.mediaDevices.getUserMedia({
     const getAverageVolume = array => {
         const length = array.length;
         let values = 0;
-        let i = 250;
+        let i = 450;
 
         for (; i < length; i++) {
             values += array[i];
         }
 
-        return values / length;
+        return values / (length-450);
     }
 
       scriptProcessor.onaudioprocess = processInput;
