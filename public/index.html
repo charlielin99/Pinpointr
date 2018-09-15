@@ -23,7 +23,6 @@ navigator.mediaDevices.getUserMedia({
 
     const processInput = audioProcessingEvent => {
         const tempArray = new Uint8Array(analyser.frequencyBinCount);
-        console.log(analyser.frequencyBinCount);
 
         analyser.getByteFrequencyData(tempArray);
         test.innerHTML = getAverageVolume(tempArray);
@@ -33,13 +32,13 @@ navigator.mediaDevices.getUserMedia({
     const getAverageVolume = array => {
         const length = array.length;
         let values = 0;
-        let i = length-62;
+        let i = 450;
 
         for (; i < length; i++) {
             values += array[i];
         }
 
-        return values / (62);
+        return values / (length-450);
     }
 
       scriptProcessor.onaudioprocess = processInput;
