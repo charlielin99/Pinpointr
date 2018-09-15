@@ -1,4 +1,8 @@
+<div id="test"></div>
+
 <script>
+
+var test = document.getElementById('test');
 
 navigator.mediaDevices.getUserMedia({
     audio: true
@@ -21,7 +25,7 @@ navigator.mediaDevices.getUserMedia({
         const tempArray = new Uint8Array(analyser.frequencyBinCount);
 
         analyser.getByteFrequencyData(tempArray);
-        console.log(getAverageVolume(tempArray));
+        test.innerHTML = getAverageVolume(tempArray);
 
     }
 
@@ -43,10 +47,5 @@ navigator.mediaDevices.getUserMedia({
 }, error => {
     // Something went wrong, or the browser does not support getUserMedia
 });
-
-function renderBars(bars) {
-  console.log(bars);
-}
-
 
  </script>
