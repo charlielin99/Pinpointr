@@ -35,21 +35,28 @@ app.post('/time', function(req, res) {
 });
 
 app.post('/update', function(req,res) {
+  console.log(volumes);
   if (volumes.length < 3) {
     volumes.push(req.body.volume);
   } else {
 
-    var spawn = require("child_process").spawn;
-    var process = spawn('python',["./hello.py", volumes[0], volumes[1], volumes[2] );
-    process.stdout.on('data', function(data) {
-        console.log(data);
-    });
+    triangulate(volumes);
 
     volumes = [];
   }
+  res.sendStatus(200);
 });
 
-
+function triangulate(volumes) {
+  var spawn = require("child_process").spawn;
+  var child = spawn('python',["./triangulate.py", parseInt(volumes[0]), parseInt(volumes[1]), parseInt(volumes[2]) ] );
+  child.stdout.on('data', function(data) {
+      console.log(data.toString('utf-8'));
+  });
+  child.stderr.on('data', (data) => {
+    console.error(`child stderr:\n${data}`);
+  });
+}
 
 app.listen(PORT);
 console.log(PORT);
