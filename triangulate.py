@@ -1,18 +1,8 @@
 import numpy as np
-import time
-import ntplib
-from datetime import datetime
+import argparse
+import sys
 
 
-
-v_s = 343 #[m/s]
-
-# POSITIONS OF RECIEVERS, in [m]
-R1 = (0, 0)
-R2 = (3, 4)
-R3 = (1, 5)
-
-#TODO: need kinit from some initial calibration tests
 
 def triangulate_on_timestamps_2D(p1, p2, p3, k1=1/(4*np.pi), k2=1):
     """
@@ -55,8 +45,19 @@ def dopler_on_timesignals(f1, f2, f3):
     return
 
 
+# # # # main routine
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('powers', metavar='p', type=float, nargs='+',
+                    help='an integer for the accumulator')
+args = parser.parse_args()
 
-tvec = (.003, .02, .005)
+# fixed positions of laptops
+# POSITIONS OF RECIEVERS, in [m]
+R1 = (0, 0)
+R2 = (3, 4)
+R3 = (1, 5)
 
-coords = triangulate_on_timestamps_2D(*tvec)
-print(coords)
+
+coords = triangulate_on_timestamps_2D(*args.powers)
+print(coords[0], coords[1] )
+sys.stdout.flush()
