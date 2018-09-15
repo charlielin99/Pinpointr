@@ -38,7 +38,13 @@ app.post('/update', function(req,res) {
   if (volumes.length < 3) {
     volumes.push(req.body.volume);
   } else {
-    
+
+    var spawn = require("child_process").spawn;
+    var process = spawn('python',["./hello.py", volumes[0], volumes[1], volumes[2] );
+    process.stdout.on('data', function(data) {
+        console.log(data);
+    });
+
     volumes = [];
   }
 });
