@@ -1,0 +1,7 @@
+{
+  "name": "Intacta",
+  "description": "Precise device location using ultrasound",
+  "repository": "https://github.com/CharlieLin99/Intacta",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
+}

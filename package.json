@@ -1,0 +1,23 @@
+{
+  "name": "intacta",
+  "version": "1.0.0",
+  "description": "Hack the North 2018",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charlielin99/Intacta.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charlielin99/Intacta/issues"
+  },
+  "homepage": "https://github.com/charlielin99/Intacta#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}

@@ -1,0 +1,52 @@
+<script>
+
+navigator.mediaDevices.getUserMedia({
+    audio: true
+}).then(stream => {
+    // Handle the incoming audio stream
+    const audioContext = new AudioContext();
+    const input = audioContext.createMediaStreamSource(stream);
+    const analyser = audioContext.createAnalyser();
+    const scriptProcessor = audioContext.createScriptProcessor();
+
+    // Some analyser setup
+    analyser.smoothingTimeConstant = 0.3;
+    analyser.fftSize = 1024;
+
+    input.connect(analyser);
+    analyser.connect(scriptProcessor);
+    scriptProcessor.connect(audioContext.destination);
+
+    const processInput = audioProcessingEvent => {
+        const tempArray = new Uint8Array(analyser.frequencyBinCount);
+
+        analyser.getByteFrequencyData(tempArray);
+        console.log(getAverageVolume(tempArray));
+
+    }
+
+    const getAverageVolume = array => {
+        const length = array.length;
+        let values = 0;
+        let i = 250;
+
+        for (; i < length; i++) {
+            values += array[i];
+        }
+
+        return values / length;
+    }
+
+      scriptProcessor.onaudioprocess = processInput;
+
+
+}, error => {
+    // Something went wrong, or the browser does not support getUserMedia
+});
+
+function renderBars(bars) {
+  console.log(bars);
+}
+
+
+ </script>
