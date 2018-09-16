@@ -34,8 +34,6 @@ def triangulate_on_timestamps_2D(p1, p2, p3, k1=0.06, k2=1, bias=0.1):
                     [D, E]])
     P = np.array([[C], [F]])
     S = np.linalg.inv(Q).dot(P)
-    print(p1, p2, p3)
-    print(r1,r2,r3)
     x, y = S[0][0], S[1][0]
 
     return x,y
@@ -55,7 +53,6 @@ def dopler_on_timesignals(f1, f2, f3, x, y, f0=7000):
     cos_thetas = np.array(cos_thetas)
     sin_thetas = np.sin(np.arccos(cos_thetas))
     fvals = (np.array([f1, f2, f3])/f0 -1 )*V_S
-    print(fvals, cos_thetas)
     # for every combination of linear systems, see what the doppler algorithm
     # claims the velocity is
     for i, j in [(0,1), (1,2), (2,0)]:
@@ -64,7 +61,6 @@ def dopler_on_timesignals(f1, f2, f3, x, y, f0=7000):
         F = np.array([ [fvals[i]], [fvals[j]]])
         V = np.linalg.inv(Mij).dot(F)
         vx, vy = V[0][0], V[1][0]
-        print(vx, vy)
 
 # # # # main routine
 parser = argparse.ArgumentParser(description='Process some integers.')

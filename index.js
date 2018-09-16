@@ -55,6 +55,8 @@ app.post('/update', function(req,res) {
   } else {
 
     triangulate(volumes);
+
+    volumes = [];
   }
   res.sendStatus(200);
 });
@@ -62,7 +64,6 @@ app.post('/update', function(req,res) {
 function triangulate(volumes) {
   var spawn = require("child_process").spawn;
   var child = spawn('python',["./triangulate.py", parseFloat(volumes[0]), parseFloat(volumes[1]), parseFloat(volumes[2]) ] );
-  volumes = [];
   child.stdout.on('data', function(data) {
       console.log(data.toString('utf-8'));
 
