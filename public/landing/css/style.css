@@ -1,0 +1,81 @@
+#canvas {
+  position: relative;
+  width: 842px;
+}
+
+html, body {
+  font-family: "Open Sans", sans-serif !important;
+}
+
+.code, blockquote {
+  font-family: Pragmata, Menlo, 'DejaVu LGC Sans Mono', 'DejaVu Sans Mono', Consolas, 'Everson Mono', 'Lucida Console', 'Andale Mono', 'Nimbus Mono L', 'Liberation Mono', FreeMono, 'Osaka Monospaced', Courier, 'New Courier', monospace;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.proxy {
+  top: 320px;
+  left: 330px;
+}
+
+.container {
+  top: 378px;
+  left: 350px;
+}
+
+.static {
+  top: 248px;
+  left: 420px;
+}
+.static .static__text {
+  width: 320px;
+}
+
+.bucket {
+  top: 310px;
+  left: 520px;
+}
+
+.proxy, .container, .static, .bucket {
+  transition: all 180ms ease-in;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.proxy__title, .container__title, .static__title, .bucket__title {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+.proxy__text, .container__text, .static__text, .bucket__text {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  width: 220px;
+  display: block;
+  font-weight: 100;
+}
+.proxy--active, .container--active, .static--active, .bucket--active {
+  opacity: 1;
+}
+
+.intro {
+  font-weight: 100;
+}
+.intro__number, .intro__container {
+  float: left;
+}
+.intro__number {
+  font-size: 60px;
+}
+.intro__title {
+  margin-top: 10px;
+  font-size: 30px;
+  margin-bottom: 0;
+}
+.intro__text {
+  margin-top: 5px;
+  font-size: 20px;
+  width: 700px;
+}
