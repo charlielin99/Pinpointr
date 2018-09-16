@@ -5,6 +5,15 @@
 <script>
 
 var username;
+var volumes = [];
+
+function getAverage(volumes) {
+  var sum = 0;
+  for (var i = 0; i< volumes.length; i++) {
+    sum += volumes[i];
+  }
+  return sum / volumes.length;
+}
 
 axios.get('/getusername').then( function(response) {
   username = response.data;
@@ -105,11 +114,11 @@ function onMicrophoneGranted(stream) {
 
     var biquadFilter = audioContext.createBiquadFilter();
     biquadFilter.type = 'highpass';
-    biquadFilter.frequency.value = 8000;
+    biquadFilter.frequency.value = 10000;
     biquadFilter.gain.value = 25;
 
     mediaStreamSource.connect(biquadFilter);
-    mediaStreamSource.connect(meter);
+    biquadFilter.connect(meter);
 
     // Trigger callback that shows the level of the "Volume Meter"
     onLevelChange();
@@ -126,6 +135,7 @@ function onLevelChange(time) {
     } else {
         console.log(meter.volume);
         test.innerHTML = meter.volume;
+        volumes.push(meter.volume);
     }
 
     // set up the next callback
@@ -162,9 +172,9 @@ try {
 setInterval( function() {
   axios.post('/update', {
     username: username,
-    volume: test.innerHTML
+    volume: getAverage(volumes)
   });
 
-}, 200);
+}, 500);
 
  </script>

@@ -19,7 +19,7 @@ def triangulate_on_timestamps_2D(p1, p2, p3, k1=1/(4*np.pi), k2=1, bias=0.1):
     # parr = k2*np.array([p1, p2, p3])/10
     # v1, v2, v3 = np.power(10, parr)
     # r1, r2, r3 = k1/v1, k1/v2, k1/v3
-    r1, r2, r3 = k1/(p1+bias), (k1/p2+bias), (k1/p3+bias)
+    r1, r2, r3 = k1/(p1+bias), k1/(p2+bias), k1/(p3+bias)
 
     # Determine some coefficients to do basic linear algebra
     A = x3 - x2

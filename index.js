@@ -31,6 +31,10 @@ app.get('/beacons',function(req,res){
   res.sendFile(__dirname+'/public/beacons.html');
 });
 
+app.get('/emitsound', function(req, res) {
+  res.sendFile(__dirname+'/public/emitsound.html');
+})
+
 app.get('/getusername', function(req, res) {
   res.send('' + user);
   user++;

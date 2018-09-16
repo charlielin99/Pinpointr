@@ -13,6 +13,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/96/three.min.js"></script>
+    <script src="./OrbitControls.js"></script>
 
     <script>
 
@@ -20,17 +21,21 @@
     scene.background = new THREE.Color(0xffffff);
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
+var controls = new THREE.OrbitControls( camera );
+controls.update();
+
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-var geometry = new THREE.BoxGeometry( 4, 4, 4 );
+var geometry = new THREE.BoxGeometry( 2, 2, 2 );
 var loader = new THREE.CubeTextureLoader();
 var textureCube = loader.load( [
 	'/charlie.jpg', '/charlie.jpg',
 	'/charlie.jpg', '/charlie.jpg',
 	'/charlie.jpg', '/charlie.jpg'
 ] );
+textureCube.minFilter = THREE.NearestFilter;
 var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube } );
 
 var cube = new THREE.Mesh( geometry, material );
@@ -62,17 +67,32 @@ camera.fov = 120;
 function animate() {
 	requestAnimationFrame( animate );
 	renderer.render( scene, camera );
+  controls.update();
 
-  cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
+  //cube.rotation.x += 0.01;
+	//cube.rotation.y += 0.01;
 }
 animate();
 
       setInterval( function() {
         axios.get('/position').then(function(res) {
-          console.log(res.data.split(' '));
+          pos = res.data.split(' ');
+
+          if(pos[0].includes('e')) {
+            cube.position.x = parseInt(pos[0].substring(0, pos[0].indexOf('e')))*Math.pow(10, parseInt(pos[0].substring(pos[0].indexOf('e') + 1)));
+          } else {
+            cube.position.x = parseInt(pos[0]);
+          }
+
+          if(pos[1].includes('e')) {
+            cube.position.y = parseInt(pos[1].substring(0, pos[1].indexOf('e')))*Math.pow(10, parseInt(pos[1].substring(pos[1].indexOf('e') + 1)));
+          } else {
+            cube.position.y = parseInt(pos[1]);
+          }
+
+          console.log(cube.position);
         });
-      }, 3000);
+      }, 200);
 
     </script>
 	</body>
