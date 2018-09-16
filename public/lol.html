@@ -1,16 +1,4 @@
-<div id="test"></div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-
 <script>
-
-var username;
-
-axios.get('/getusername').then( function(response) {
-  username = response.data;
-});
-
-var test = document.getElementById('test');
 
 function createAudioMeter(audioContext,clipLevel,averaging,clipLag) {
 
@@ -125,7 +113,6 @@ function onLevelChange(time) {
         console.warn(meter.volume);
     } else {
         console.log(meter.volume);
-        test.innerHTML = meter.volume;
     }
 
     // set up the next callback
@@ -158,13 +145,4 @@ try {
 } catch (e) {
     alert('getUserMedia threw exception :' + e);
 }
-
-setInterval( function() {
-  axios.post('/update', {
-    username: username,
-    volume: test.innerHTML
-  });
-
-}, 3000);
-
- </script>
+</script>
