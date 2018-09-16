@@ -64,6 +64,8 @@ cube4.position.y = Math.sqrt(85)*Math.sin(Math.atan(6/7) + 4*Math.PI/3);
 camera.position.z = 14;
 camera.fov = 120;
 
+var factor = 500;
+
 function animate() {
 	requestAnimationFrame( animate );
 	renderer.render( scene, camera );
@@ -79,15 +81,15 @@ animate();
           pos = res.data.split(' ');
 
           if(pos[0].includes('e')) {
-            cube.position.x = 10*parseFloat(pos[0].substring(0, pos[0].indexOf('e')))*Math.pow(10, parseFloat(pos[0].substring(pos[0].indexOf('e') + 1)));
+            cube.position.x = factor*parseFloat(pos[0].substring(0, pos[0].indexOf('e')))*Math.pow(10, parseFloat(pos[0].substring(pos[0].indexOf('e') + 1)));
           } else {
-            cube.position.x = 10*parseFloat(pos[0]);
+            cube.position.x = factor*parseFloat(pos[0]);
           }
 
           if(pos[1].includes('e')) {
-            cube.position.y = 10*parseFloat(pos[1].substring(0, pos[1].indexOf('e')))*Math.pow(10, parseFloat(pos[1].substring(pos[1].indexOf('e') + 1)));
+            cube.position.y = factor*parseFloat(pos[1].substring(0, pos[1].indexOf('e')))*Math.pow(10, parseFloat(pos[1].substring(pos[1].indexOf('e') + 1)));
           } else {
-            cube.position.y = 10*parseFloat(pos[1]);
+            cube.position.y = factor*parseFloat(pos[1]);
           }
 
           console.log(cube.position);
