@@ -3,7 +3,7 @@ import argparse
 import sys
 import math;
 
-def triangulate_on_timestamps_2D(p1, p2, p3, k1=1/(4*np.pi), k2=1, bias=0.1):
+def triangulate_on_timestamps_2D(p1, p2, p3, k1=0.06, k2=1, bias=0.1):
     """
     given a list of three times representing time difference between
     i-th receiver receiving the signal and the signal origin time,
