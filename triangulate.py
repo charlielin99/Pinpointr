@@ -72,7 +72,7 @@ args = parser.parse_args()
 
 # fixed positions of laptops
 # POSITIONS OF RECIEVERS, in [m]
-R1 = (7, 7)
+R1 = (7, 6)
 R2 = (math.sqrt(85)*math.cos(math.atan(6/7) + 2*math.pi/3), math.sqrt(85)*math.sin(math.atan(6/7) + 2*math.pi/3))
 R3 = (math.sqrt(85)*math.cos(math.atan(6/7) + 4*math.pi/3), math.sqrt(85)*math.sin(math.atan(6/7) + 4*math.pi/3))
 
