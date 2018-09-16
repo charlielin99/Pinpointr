@@ -1,0 +1,78 @@
+#canvas {
+  position: relative;
+  width: 842px;
+}
+
+html, body {
+  font-family: 'Open Sans', sans-serif!important;   
+}
+
+.code, blockquote {
+font-family: Pragmata, Menlo, 'DejaVu LGC Sans Mono', 'DejaVu Sans Mono', Consolas, 'Everson Mono', 'Lucida Console', 'Andale Mono', 'Nimbus Mono L', 'Liberation Mono', FreeMono, 'Osaka Monospaced', Courier, 'New Courier', monospace;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.proxy {
+  top: 320px;
+  left: 330px;
+}
+.container {
+  top: 378px;
+  left: 350px;
+}
+.static {
+  top: 248px;
+  left: 420px;
+  & &__text {
+    width: 320px;
+  }
+}
+.bucket {
+  top: 310px;
+  left: 520px;
+}
+
+.proxy, .container, .static, .bucket {
+  transition: all 180ms ease-in;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  &__title {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+  }
+  &__text {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    width: 220px;
+    display: block;
+    font-weight: 100;
+  }
+  &--active {
+    opacity: 1;
+  }
+}
+
+.intro {
+  font-weight: 100;
+  &__number, &__container {
+    float: left;    
+  }
+  &__number {
+    font-size: 60px;
+  }
+  &__title {
+    margin-top: 10px;
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+  &__text {
+    margin-top: 5px;
+    font-size: 10px;
+    width: 300px;
+  }
+}
