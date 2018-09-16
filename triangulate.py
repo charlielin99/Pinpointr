@@ -85,4 +85,4 @@ V_S = 343 # m/s
 coords = triangulate_on_timestamps_2D(*args.powers)
 print(coords[0], coords[1] )
 sys.stdout.flush()
-velocities = dopler_on_timesignals(7010, 7001, 6990, 0.1, 0.1)
+#velocities = dopler_on_timesignals(7010, 7001, 6990, 0.1, 0.1)
