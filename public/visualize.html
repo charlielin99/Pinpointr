@@ -94,6 +94,10 @@ animate();
             y = factor*parseFloat(pos[1]);
           }
 
+          cube.position.x = x;
+          cube.position.y = y;
+
+/*
           while (cube.position.x > x) {
             cube.position.x -= Math.random()*2+4;
           }
@@ -106,6 +110,7 @@ animate();
           while (cube.position.y < y) {
             cube.position.y += Math.random()*2+4;
           }
+          */
 
           console.log(cube.position);
         });
