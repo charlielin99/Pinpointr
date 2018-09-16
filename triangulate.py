@@ -34,6 +34,8 @@ def triangulate_on_timestamps_2D(p1, p2, p3, k1=1/(4*np.pi), k2=1, bias=0.1):
                     [D, E]])
     P = np.array([[C], [F]])
     S = np.linalg.inv(Q).dot(P)
+    print(p1, p2, p3)
+    print(r1,r2,r3)
     x, y = S[0][0], S[1][0]
 
     return x,y

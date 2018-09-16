@@ -114,7 +114,7 @@ function onMicrophoneGranted(stream) {
 
     var biquadFilter = audioContext.createBiquadFilter();
     biquadFilter.type = 'highpass';
-    biquadFilter.frequency.value = 10000;
+    biquadFilter.frequency.value = 8500;
     biquadFilter.gain.value = 25;
 
     mediaStreamSource.connect(biquadFilter);
