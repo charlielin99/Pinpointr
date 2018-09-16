@@ -80,16 +80,31 @@ animate();
         axios.get('/position').then(function(res) {
           pos = res.data.split(' ');
 
+          var x, y;
+
           if(pos[0].includes('e')) {
-            cube.position.x = factor*parseFloat(pos[0].substring(0, pos[0].indexOf('e')))*Math.pow(10, parseFloat(pos[0].substring(pos[0].indexOf('e') + 1)));
+            x = factor*parseFloat(pos[0].substring(0, pos[0].indexOf('e')))*Math.pow(10, parseFloat(pos[0].substring(pos[0].indexOf('e') + 1)));
           } else {
-            cube.position.x = factor*parseFloat(pos[0]);
+            x = factor*parseFloat(pos[0]);
           }
 
           if(pos[1].includes('e')) {
-            cube.position.y = factor*parseFloat(pos[1].substring(0, pos[1].indexOf('e')))*Math.pow(10, parseFloat(pos[1].substring(pos[1].indexOf('e') + 1)));
+            y = factor*parseFloat(pos[1].substring(0, pos[1].indexOf('e')))*Math.pow(10, parseFloat(pos[1].substring(pos[1].indexOf('e') + 1)));
           } else {
-            cube.position.y = factor*parseFloat(pos[1]);
+            y = factor*parseFloat(pos[1]);
+          }
+
+          while (cube.position.x > x) {
+            cube.position.x -= Math.random()*2;
+          }
+          while (cube.position.y > y) {
+            cube.position.y -= Math.random()*2;
+          }
+          while (cube.position.x < x) {
+            cube.position.x += Math.random()*2;
+          }
+          while (cube.position.y < y) {
+            cube.position.y += Math.random()*2;
           }
 
           console.log(cube.position);
