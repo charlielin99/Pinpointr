@@ -7,19 +7,33 @@ const PORT = process.env.PORT || 5000
 
 var user = 1;
 var volumes = [];
+var position = '0 0';
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname));
 
 app.get('/',function(req,res){
   res.sendFile(__dirname+'/public/index.html');
 });
 
+app.get('/position', function(req, res) {
+  res.send(position);
+});
+
+app.get('/visualize', function(req, res) {
+  res.sendFile(__dirname + '/public/visualize.html');
+});
+
 app.get('/beacons',function(req,res){
   res.sendFile(__dirname+'/public/beacons.html');
 });
+
+app.get('/emitsound', function(req, res) {
+  res.sendFile(__dirname+'/public/emitsound.html');
+})
 
 app.get('/getusername', function(req, res) {
   res.send('' + user);
@@ -49,9 +63,13 @@ app.post('/update', function(req,res) {
 
 function triangulate(volumes) {
   var spawn = require("child_process").spawn;
-  var child = spawn('python',["./triangulate.py", parseInt(volumes[0]), parseInt(volumes[1]), parseInt(volumes[2]) ] );
+  var child = spawn('python',["./triangulate.py", parseFloat(volumes[0]), parseFloat(volumes[1]), parseFloat(volumes[2]) ] );
   child.stdout.on('data', function(data) {
       console.log(data.toString('utf-8'));
+
+      if( data.toString('utf-8') !== '0 0') {
+        position = data.toString('utf-8');
+      }
   });
   child.stderr.on('data', (data) => {
     console.error(`child stderr:\n${data}`);

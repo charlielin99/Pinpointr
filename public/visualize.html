@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>PINPOINTR</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/96/three.min.js"></script>
+    <script src="./OrbitControls.js"></script>
+
+    <script>
+
+    var scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
+var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+var controls = new THREE.OrbitControls( camera );
+controls.update();
+
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+var geometry = new THREE.BoxGeometry( 2, 2, 2 );
+var loader = new THREE.CubeTextureLoader();
+var textureCube = loader.load( [
+	'/charlie.jpg', '/charlie.jpg',
+	'/charlie.jpg', '/charlie.jpg',
+	'/charlie.jpg', '/charlie.jpg'
+] );
+textureCube.minFilter = THREE.NearestFilter;
+var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube } );
+
+var cube = new THREE.Mesh( geometry, material );
+
+scene.add( cube );
+
+var material2 = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+var geometry2 = new THREE.BoxGeometry( 1, 1, 1 );
+
+var cube2 = new THREE.Mesh( geometry2, material2 );
+scene.add(cube2);
+var cube3 = new THREE.Mesh( geometry2, material2 );
+scene.add(cube3);
+var cube4 = new THREE.Mesh( geometry2, material2 );
+scene.add(cube4);
+
+cube2.position.x = 7;
+cube2.position.y = 6;
+
+cube3.position.x = Math.sqrt(85)*Math.cos(Math.atan(6/7) + 2*Math.PI/3);
+cube3.position.y = Math.sqrt(85)*Math.sin(Math.atan(6/7) + 2*Math.PI/3);
+
+cube4.position.x = Math.sqrt(85)*Math.cos(Math.atan(6/7) + 4*Math.PI/3);
+cube4.position.y = Math.sqrt(85)*Math.sin(Math.atan(6/7) + 4*Math.PI/3);
+
+camera.position.z = 14;
+camera.fov = 120;
+
+var factor = 1000;
+
+function animate() {
+	requestAnimationFrame( animate );
+	renderer.render( scene, camera );
+  controls.update();
+
+  //cube.rotation.x += 0.01;
+	//cube.rotation.y += 0.01;
+}
+animate();
+
+      setInterval( function() {
+        axios.get('/position').then(function(res) {
+          pos = res.data.split(' ');
+
+          var x, y;
+
+          if(pos[0].includes('e')) {
+            x = factor*parseFloat(pos[0].substring(0, pos[0].indexOf('e')))*Math.pow(10, parseFloat(pos[0].substring(pos[0].indexOf('e') + 1)));
+          } else {
+            x = factor*parseFloat(pos[0]);
+          }
+
+          if(pos[1].includes('e')) {
+            y = factor*parseFloat(pos[1].substring(0, pos[1].indexOf('e')))*Math.pow(10, parseFloat(pos[1].substring(pos[1].indexOf('e') + 1)));
+          } else {
+            y = factor*parseFloat(pos[1]);
+          }
+
+          while (cube.position.x > x) {
+            cube.position.x -= Math.random()*2+4;
+          }
+          while (cube.position.y > y) {
+            cube.position.y -= Math.random()*2+4;
+          }
+          while (cube.position.x < x) {
+            cube.position.x += Math.random()*2+4;
+          }
+          while (cube.position.y < y) {
+            cube.position.y += Math.random()*2+4;
+          }
+
+          console.log(cube.position);
+        });
+      }, 200);
+
+    </script>
+	</body>
+</html>
