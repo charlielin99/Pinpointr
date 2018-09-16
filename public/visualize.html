@@ -64,7 +64,7 @@ cube4.position.y = Math.sqrt(85)*Math.sin(Math.atan(6/7) + 4*Math.PI/3);
 camera.position.z = 14;
 camera.fov = 120;
 
-var factor = 500;
+var factor = 1000;
 
 function animate() {
 	requestAnimationFrame( animate );
@@ -94,10 +94,6 @@ animate();
             y = factor*parseFloat(pos[1]);
           }
 
-          cube.position.x = x;
-          cube.position.y = y;
-
-/*
           while (cube.position.x > x) {
             cube.position.x -= Math.random()*2+4;
           }
@@ -110,7 +106,6 @@ animate();
           while (cube.position.y < y) {
             cube.position.y += Math.random()*2+4;
           }
-          */
 
           console.log(cube.position);
         });
