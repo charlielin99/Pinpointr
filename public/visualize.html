@@ -1,0 +1,11 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+<script>
+
+  setInterval( function() {
+    axios.get('/position').then(function(res) {
+      console.log(res.data.split(' '));
+    });
+  }, 3000);
+
+</script>

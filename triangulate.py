@@ -59,5 +59,5 @@ R3 = (1, 5)
 
 
 coords = triangulate_on_timestamps_2D(*args.powers)
-print(coords[0], coords[1] )
+print(coords[0], coords[1])
 sys.stdout.flush()
