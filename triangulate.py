@@ -1,7 +1,7 @@
 import numpy as np
 import argparse
 import sys
-
+import math;
 
 def triangulate_on_timestamps_2D(p1, p2, p3, k1=1/(4*np.pi), k2=1):
     """
@@ -72,9 +72,9 @@ args = parser.parse_args()
 
 # fixed positions of laptops
 # POSITIONS OF RECIEVERS, in [m]
-R1 = (-1, 0)
-R2 = (0, 1)
-R3 = (1, 0)
+R1 = (7, 7)
+R2 = (math.sqrt(85)*math.cos(math.atan(6/7) + 2*math.pi/3), math.sqrt(85)*math.sin(math.atan(6/7) + 2*math.pi/3))
+R3 = (math.sqrt(85)*math.cos(math.atan(6/7) + 4*math.pi/3), math.sqrt(85)*math.sin(math.atan(6/7) + 4*math.pi/3))
 
 x1, y1 = R1[0], R1[1]
 x2, y2 = R2[0], R2[1]
